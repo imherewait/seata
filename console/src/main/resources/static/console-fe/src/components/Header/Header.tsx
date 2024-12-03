@@ -1,11 +1,12 @@
-/**
- * Copyright 1999-2019 Seata.io Group.
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +22,14 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ConfigProvider, Dropdown, Menu } from '@alicloud/console-components';
 import siteConfig from '../../config';
-import { changeLanguage, IChangeLanguage, LocaleStateModel, getCurrentLanguage, zhCnKey, enUsKey } from '@/reducers/locale';
+import {
+  changeLanguage,
+  IChangeLanguage,
+  LocaleStateModel,
+  getCurrentLanguage,
+  zhCnKey,
+  enUsKey,
+} from '@/reducers/locale';
 import { GlobalStateModel } from '@/reducers';
 import { AUTHORIZATION_HEADER } from '@/contants';
 
@@ -30,15 +38,16 @@ import './index.scss';
 type StateToPropsType = LocaleStateModel;
 
 type DispathToPropsType = {
-    changeLanguage: (lang: string) => void;
+  changeLanguage: (lang: string) => void;
 };
 
-export type PropsType = StateToPropsType & DispathToPropsType & RouteComponentProps & {
-  locale: any;
-};
+export type PropsType = StateToPropsType &
+  DispathToPropsType &
+  RouteComponentProps & {
+    locale: any;
+  };
 
-type StateType = {
-}
+type StateType = {};
 
 class Header extends React.Component<PropsType, StateType> {
   static displayName = 'Header';
@@ -81,24 +90,28 @@ class Header extends React.Component<PropsType, StateType> {
       location: { pathname },
     } = this.props;
     console.log('props:', this.props);
-    const { home, cloud, docs, blog, community, download, languageSwitchButton } = locale;
-    const BASE_URL = `https://seata.io/${language.toLocaleLowerCase()}/`;
+    const {
+      home,
+      docs,
+      blog,
+      community,
+      download,
+      sagaStatemachineDesigner,
+      languageSwitchButton,
+    } = locale;
+    const BASE_URL =
+      language === enUsKey ? 'https://seata.apache.org/' : 'https://seata.apache.org/zh-cn/';
     const NAV_MENU = [
-      {id: 1, title: home, link: BASE_URL},
-      {id: 2, title: cloud, link: `https://www.aliyun.com/product/aliware/mse?spm=seata-website.topbar.0.0.0`},
-      {id: 3, title: docs, link: `${BASE_URL}docs/overview/what-is-seata.html`},
-      {id: 4, title: blog, link: `${BASE_URL}blog/index.html`},
-      {id: 5, title: community, link: `${BASE_URL}community/index.html`},
-      {id: 6, title: download, link: `${BASE_URL}blog/download.html`},
+      { id: 1, title: home, link: BASE_URL },
+      { id: 2, title: docs, link: `${BASE_URL}docs/overview/what-is-seata/` },
+      { id: 3, title: blog, link: `${BASE_URL}blog` },
+      { id: 4, title: community, link: `${BASE_URL}community` },
+      { id: 5, title: download, link: `${BASE_URL}unversioned/download/seata-server` },
     ];
     return (
       <header className="header-container header-container-primary">
         <div className="header-body">
-          <a
-            href={`https://seata.io/${language.toLocaleLowerCase()}/`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={BASE_URL} target="_blank" rel="noopener noreferrer">
             <img
               src="img/seata_logo.png"
               className="logo"
@@ -108,9 +121,11 @@ class Header extends React.Component<PropsType, StateType> {
           </a>
           {/* if is login page, we will show logout */}
           {pathname !== '/login' && (
-            <Dropdown align='tc bc' trigger={<div className="logout">{this.getUsername()}</div>}>
+            <Dropdown align="tc bc" trigger={<div className="logout">{this.getUsername()}</div>}>
               <Menu>
-                <Menu.Item style={{textAlign:'center'}} onClick={this.logout}>{locale.logout}</Menu.Item>
+                <Menu.Item style={{ textAlign: 'center' }} onClick={this.logout}>
+                  {locale.logout}
+                </Menu.Item>
               </Menu>
             </Dropdown>
           )}
@@ -134,15 +149,19 @@ class Header extends React.Component<PropsType, StateType> {
   }
 }
 
-
 const mapStateToProps = (state: GlobalStateModel): StateToPropsType => ({
-  ...state.locale
+  ...state.locale,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispathToPropsType => ({
-  changeLanguage: (lang) => {
-    changeLanguage(lang)(dispatch)
-  }
+  changeLanguage: lang => {
+    changeLanguage(lang)(dispatch);
+  },
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ConfigProvider.config(Header, {})));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ConfigProvider.config(Header, {}))
+);

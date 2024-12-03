@@ -1,16 +1,19 @@
-@REM Copyright 1999-2019 Seata.io Group.
 @REM
-@REM Licensed under the Apache License, Version 2.0 (the "License");
-@REM you may not use this file except in compliance with the License.
-@REM You may obtain a copy of the License at
+@REM Licensed to the Apache Software Foundation (ASF) under one or more
+@REM contributor license agreements.  See the NOTICE file distributed with
+@REM this work for additional information regarding copyright ownership.
+@REM The ASF licenses this file to You under the Apache License, Version 2.0
+@REM (the "License"); you may not use this file except in compliance with
+@REM the License.  You may obtain a copy of the License at
 @REM
-@REM      http://www.apache.org/licenses/LICENSE-2.0
+@REM     http://www.apache.org/licenses/LICENSE-2.0
 @REM
 @REM Unless required by applicable law or agreed to in writing, software
 @REM distributed under the License is distributed on an "AS IS" BASIS,
 @REM WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 @REM See the License for the specific language governing permissions and
 @REM limitations under the License.
+@REM
 
 @echo off
 
@@ -92,8 +95,21 @@ if "%SKYWALKING_ENABLE%"=="true" (
 ) else (
   echo "apm-skywalking not enabled"
 )
+if "%JMX_ENABLE%"=="true" (
+  set JMX_PORT=%JMX_PORT%
+  set JMX_OPTS=%JMX_OPTS%
+  if "%JMX_OPTS%"=="" (
+    set "JMX_OPTS=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+  )
+  if "%JMX_PORT%"=="" (
+    set "JMX_OPTS=%JMX_OPTS% -Dcom.sun.management.jmxremote.port=10055 -Dcom.sun.management.jmxremote.rmi.port=10055"
+  )
+  echo "JMX enabled"
+) else (
+  echo "JMX disabled"
+)
 
-%JAVACMD% %JAVA_OPTS% %SKYWALKING_OPTS% -server -Dloader.path="%BASEDIR%"/lib -Xmx2048m -Xms2048m -Xmn1024m -Xss512k -XX:SurvivorRatio=10 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=1024m -XX:-OmitStackTraceInFastThrow -XX:-UseAdaptiveSizePolicy -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="%BASEDIR%"/logs/java_heapdump.hprof -XX:+DisableExplicitGC -Xloggc:"%BASEDIR%"/logs/seata_gc.log -verbose:gc -Dio.netty.leakDetectionLevel=advanced -classpath %CLASSPATH% -Dapp.name="seata-server" -Dapp.repo="%REPO%" -Dapp.home="%BASEDIR%" -Dbasedir="%BASEDIR%" -Dspring.config.location="%BASEDIR%"/conf/application.yml -Dlogging.config="%BASEDIR%"/conf/logback-spring.xml -jar "%BASEDIR%"/target/seata-server.jar %CMD_LINE_ARGS%
+%JAVACMD% %JAVA_OPTS% %SKYWALKING_OPTS% %JMX_OPTS% -server -Dloader.path="%BASEDIR%"/lib -Xmx2048m -Xms2048m -Xss512k -XX:SurvivorRatio=10 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=1024m -XX:-OmitStackTraceInFastThrow -XX:-UseAdaptiveSizePolicy -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="%BASEDIR%"/logs/java_heapdump.hprof -XX:+DisableExplicitGC -Xloggc:"%BASEDIR%"/logs/seata_gc.log -verbose:gc -Dio.netty.leakDetectionLevel=advanced -classpath %CLASSPATH% -Dapp.name="seata-server" -Dapp.repo="%REPO%" -Dapp.home="%BASEDIR%" -Dbasedir="%BASEDIR%" -Dspring.config.location="%BASEDIR%"/conf/application.yml -Dspring.config.additional-location="%BASEDIR%"/conf/ -Dlogging.config="%BASEDIR%"/conf/logback-spring.xml -jar "%BASEDIR%"/target/seata-server.jar %CMD_LINE_ARGS%
 if %ERRORLEVEL% NEQ 0 goto error
 goto end
 

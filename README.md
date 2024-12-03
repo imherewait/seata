@@ -1,13 +1,13 @@
-<img src="https://img.alicdn.com/imgextra/i1/O1CN011z0JfQ2723QgDiWuH_!!6000000007738-2-tps-1497-401.png"  height="100" width="426">
+<div style="align: center">
+<img src="https://img.alicdn.com/imgextra/i1/O1CN011z0JfQ2723QgDiWuH_!!6000000007738-2-tps-1497-401.png"  height="100" width="426"/>
+</div>
 
 # Seata: Simple Extensible Autonomous Transaction Architecture
 
-[![Build Status](https://github.com/seata/seata/workflows/build/badge.svg?branch=develop)](https://github.com/seata/seata/actions)
-[![codecov](https://codecov.io/gh/seata/seata/branch/develop/graph/badge.svg)](https://codecov.io/gh/seata/seata)
-[![license](https://img.shields.io/github/license/seata/seata.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![maven](https://img.shields.io/maven-central/v/io.seata/seata-parent.svg)](https://search.maven.org/search?q=io.seata)
-[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/seata/seata.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/seata/seata/context:java)
-
+[![Build Status](https://github.com/apache/incubator-seata/workflows/build/badge.svg?branch=develop)](https://github.com/apache/incubator-seata/actions)
+[![codecov](https://codecov.io/gh/apache/incubator-seata/graph/badge.svg?token=tbmHt2ZfxO)](https://codecov.io/gh/apache/incubator-seata)
+[![license](https://img.shields.io/github/license/apache/incubator-seata.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![maven](https://img.shields.io/maven-central/v/org.apache.seata/seata-all?versionSuffix=2.2.0)](https://central.sonatype.com/search?q=org.apache.seata%3Aseata-all)
 
 ## What is Seata?
 
@@ -56,7 +56,7 @@ A typical lifecycle of Seata managed distributed transaction:
 
 ![Typical Process](https://cdn.nlark.com/lark/0/2018/png/18862/1545296917881-26fabeb9-71fa-4f3e-8a7a-fc317d3389f4.png) 
 
-For more details about principle and design, please go to [Seata wiki page](https://github.com/seata/seata/wiki). 
+For more details about principle and design, please go to [Seata wiki page](https://github.com/apache/incubator-seata/wiki). 
 
 ### History
 
@@ -81,73 +81,84 @@ For more details about principle and design, please go to [Seata wiki page](http
 
 
 ## Maven dependency
+
+Depending on the scenario, choose one of the two dependencies: `org.apache.seata:seata-all` or `org.apache.seata:seata-spring-boot-starter`.
 ```xml
-<seata.version>1.6.1</seata.version>
-<dependency>
-    <groupId>io.seata</groupId>
+<properties>
+  <seata.version>2.2.0</seata.version>
+</properties>
+
+<dependencies>
+<!--dependencies for non-SpringBoot application framework-->
+  <dependency>
+    <groupId>org.apache.seata</groupId>
     <artifactId>seata-all</artifactId>
     <version>${seata.version}</version>
-</dependency>
+  </dependency>
 
 <!--If your project base on `Spring Boot`, you can directly use the following dependencies-->
-<!--Notice: `seata-spring-boot-starter` has included `seata-all` dependency-->
-<dependency>
-    <groupId>io.seata</groupId>
+<!--Notice: `seata-spring-boot-starter` has already included `seata-all` dependency-->
+  <dependency>
+    <groupId>org.apache.seata</groupId>
     <artifactId>seata-spring-boot-starter</artifactId>
     <version>${seata.version}</version>
-</dependency>
-
+  </dependency>
+</dependencies>
 ```
+
 ## Quick Start
 
-[Quick Start](https://seata.io/zh-cn/docs/ops/deploy-guide-beginner.html)
+[Quick Start](https://seata.apache.org/zh-cn/docs/ops/deploy-guide-beginner)
 
 ## Documentation
 
 
-You can view the full documentation from Seata Official Website: [Seata Website page](https://seata.io/zh-cn/docs/overview/what-is-seata.html).
+You can view the full documentation from Seata Official Website: [Seata Website page](https://seata.apache.org/zh-cn/docs/overview/what-is-seata).
 
 ## Reporting bugs
 
-Please follow the [template](https://github.com/seata/seata/blob/develop/.github/ISSUE_TEMPLATE/BUG_REPORT.md) for reporting any issues.
+Please follow the [template](./.github/ISSUE_TEMPLATE/BUG_REPORT.md) for reporting any issues.
 
+## Security
+
+Please do not use our public issue tracker but refer to our [security policy](./SECURITY.md)
 
 ## Contributing
 
-Contributors are welcomed to join the Seata project. Please check [CONTRIBUTING](./CONTRIBUTING.md) and[CONTRIBUTING-CN](./CONTRIBUTING_CN.md)about how to contribute to this project.
+Contributors are welcomed to join the Seata project. Please check [CONTRIBUTING](./CONTRIBUTING.md) and [CONTRIBUTING-CN](./CONTRIBUTING_CN.md) about how to contribute to this project.
 
 
 ## Contact
 
 * Mailing list: 
-  * dev-seata@googlegroups.com , for dev/user discussion. [subscribe](mailto:dev-seata+subscribe@googlegroups.com), [unsubscribe](mailto:dev-seata+unsubscribe@googlegroups.com), [archive](https://groups.google.com/forum/#!forum/dev-seata)
-  
+  * dev@seata.apache.org , for dev/user discussion. [subscribe](mailto:dev-subscribe@seata.apache.org), [unsubscribe](mailto:dev-unsubscribe@seata.apache.org), [archive](https://lists.apache.org/list.html?dev@seata.apache.org)
+* Online chat: 
 
-<img src="https://img.alicdn.com/imgextra/i3/O1CN01FKBxyk25Ffx83dIJc_!!6000000007497-0-tps-1078-354.jpg"  height="200" width="630">
-
+|                                                       Dingtalk group                                                        |                                                   Wechat official account                                                    |                                                       QQ group                                                        |                                                  Wechat assistant                                                   |
+|:---------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://seata.apache.org/zh-cn/assets/images/dingtalk-group-67f42c9466fb2268b6927bb16b549d6c.jpg"  width="150" /> | <img src="https://seata.apache.org/zh-cn/assets/images/wechat-official-467d10305f5449e6b2096e65d23a9d02.jpg"  width="150" /> | <img src="https://seata.apache.org/zh-cn/assets/images/qq-group-8d8a89699cdb9ba8818364069475ba96.jpg"  width="150" /> | <img src="https://seata.apache.org/zh-cn/assets/images/wechat-f8a87a96973942b826e32d1aed9bc8d9.jpg"  width="150" /> |
 
 ## Seata ecosystem
 
-* [Seata Website](https://github.com/seata/seata.github.io) - Seata official website
-* [Seata Ecosystem Entry](https://github.com/seata) - A GitHub group `seata` to gather all Seata relevant projects
-* [Seata GoLang](https://github.com/opentrx/seata-golang) - Seata GoLang client and server
-* [Seata Samples](https://github.com/seata/seata-samples) - Samples for Seata
-* [Seata Docker](https://github.com/seata/seata-docker) - Seata integration with docker
-* [Seata K8s](https://github.com/seata/seata-k8s) - Seata integration with k8s
-* [Awesome Seata](https://github.com/seata/awesome-seata) - Seata's slides and video address in meetup
+* [Seata Website](https://github.com/apache/incubator-seata.github.io) - Seata official website
+* [Seata GoLang](https://github.com/apache/incubator-seata-go) - Seata GoLang client and server
+* [Seata Samples](https://github.com/apache/incubator-seata-samples) - Samples for Seata
+* [Seata GoLang Samples](https://github.com/apache/incubator-seata-go-samples) - Samples for Seata GoLang
+* [Seata K8s](https://github.com/apache/incubator-seata-k8s) - Seata integration with k8s
+* [Seata CLI](https://github.com/apache/incubator-seata-ctl) - CLI tool for Seata
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. [[Contributors](https://github.com/seata/seata/graphs/contributors)].
+This project exists thanks to all the people who contribute. [[Contributors](https://github.com/apache/incubator-seata/graphs/contributors)].
 
 ## License
 
-Seata is under the Apache 2.0 license. See the [LICENSE](https://github.com/seata/seata/blob/master/LICENSE) file for details.
+Seata is under the Apache 2.0 license. See the [LICENSE](https://github.com/apache/incubator-seata/blob/master/LICENSE) file for details.
 
 ## Who is using
 
 These are only part of the companies using Seata, for reference only. If you are using Seata, please [add your company 
-here](https://github.com/seata/seata/issues/1246) to tell us your scenario to make Seata better.
+here](https://github.com/apache/incubator-seata/issues/1246) to tell us your scenario to make Seata better.
 
 <div style='vertical-align: middle'>
     <img alt='Alibaba Group' height='40'  src='https://img.alicdn.com/imgextra/i1/O1CN01TleQq128FAP8POtL5_!!6000000007902-2-tps-241-42.png'  /img>
