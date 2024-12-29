@@ -14,26 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.spring.boot.autoconfigure;
+package org.apache.seata.spring.boot.autoconfigure.mock;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Configuration;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
-@Configuration(proxyBeanMethods = false)
-public class PropertyBeanPostProcessorTest {
-    private static AnnotationConfigApplicationContext context;
-
-    @BeforeAll
-    public static void initContext() {
-        context = new AnnotationConfigApplicationContext(PropertyBeanPostProcessorTest.class);
-    }
-
-
-    @AfterAll
-    public static void closeContext() {
-        context.close();
+public class MockMariadbDataSource extends MockDataSource {
+    @Override
+    public Connection getConnection() throws SQLException {
+        return new MockConnection(new MockDriver(), "jdbc:mariadb://127.0.0.1:3306/seata?rewriteBatchedStatements=true", null);
     }
 }

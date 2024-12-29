@@ -14,26 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.spring.boot.autoconfigure;
+package org.apache.seata.spring.boot.autoconfigure.mock;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Configuration;
+import org.apache.seata.rm.datasource.ConnectionProxy;
+import org.apache.seata.rm.datasource.DataSourceProxy;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
-@Configuration(proxyBeanMethods = false)
-public class PropertyBeanPostProcessorTest {
-    private static AnnotationConfigApplicationContext context;
-
-    @BeforeAll
-    public static void initContext() {
-        context = new AnnotationConfigApplicationContext(PropertyBeanPostProcessorTest.class);
+public class MockConnectionProxy extends ConnectionProxy {
+    /**
+     * Instantiates a new Connection proxy.
+     *
+     * @param dataSourceProxy  the data source proxy
+     * @param targetConnection the target connection
+     */
+    public MockConnectionProxy(DataSourceProxy dataSourceProxy,
+                               Connection targetConnection) {
+        super(dataSourceProxy, targetConnection);
     }
 
-
-    @AfterAll
-    public static void closeContext() {
-        context.close();
+    @Override
+    public void checkLock(String lockKeys) throws SQLException {
+        //do nothing
     }
 }
